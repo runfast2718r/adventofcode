@@ -12,3 +12,8 @@ def findRightBoxes(data):
                 return id + " " + compID
 
 print(findRightBoxes(data))
+
+
+#krdmtuqjgwfoevnaboxglzjph
+#krdmtuqjgwfoevnaboxglzjph
+#
