@@ -17,26 +17,24 @@ def buildClaimMap(data):
         for i in range(h):
             for j in range(w):
                 claimMap.append([claimNum, x+j, y+i])
-
     return claimMap
+
 def compareClaims(claimMap):
-    overlapCount = 0
-
+    overlap = 0
+    claims = [["." for x in range(1000)] for y in range(1000)]
     for coord in claimMap:
-        for compCoord in claimMap:
-            if coord[0] != compCoord[0]:
-                if coord[1] == compCoord[1] and coord[2] == compCoord[2]:
-                    overlapCount+=1
-        # for j in range(len(claimMap)):
-        #     claim = claimMap[i]
-        #     compClaim = claimMap[j]
-        #     if(i != j):
-        #         for coord in claim:
-        #             for compCoord in compClaim:
-        #                 if coord[0] == compCoord[0] and coord[1] == compCoord[1]:
-        #                     overlapCount += 1
-        print(overlapCount)
-# print(compareClaims(buildClaimMap(data)))
-print(compareClaims(buildClaimMap(data)))
+        print("claim: " + str(coord[0]))
+        row = coord[1]
+        col = coord[2]
+        if claims[coord[1]][coord[2]] == "#":
+            claims[coord[1]][coord[2]] = "X"
+        if claims[coord[1]][coord[2]] == ".":
+            claims[coord[1]][coord[2]] = "#"
 
-# TODO: make overlapCount a dict and add coord to that. if the value is in the dict, don't put it in. return len(dict)
+    for row in range(1000):
+        for col in range(1000):
+            if claims[row][col] == "X":
+                overlap +=1
+    return overlap
+
+print(compareClaims(buildClaimMap(data)))
