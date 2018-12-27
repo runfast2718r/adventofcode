@@ -20,7 +20,7 @@ def buildClaimMap(data):
     return claimMap
 
 def compareClaims(claimMap):
-    overlap = 0
+    overlappingClaims = []
     claims = [["." for x in range(1000)] for y in range(1000)]
     for coord in claimMap:
         row = coord[1]
@@ -29,28 +29,15 @@ def compareClaims(claimMap):
             claims[coord[1]][coord[2]] = "X"
         if claims[coord[1]][coord[2]] == ".":
             claims[coord[1]][coord[2]] = "#"
-    claimNum = 1
-    intact = True
-    claim = []
+    p2Claims = {str(x): "Valid" for x in range(1300)}
+    p2Claims.pop("0")
     for coord in claimMap:
-
-        if claimNum == coord[0]:
-            claim.append(coord)
-        else:
-            print(claimNum)
-            for claimCoord in claim:
-                print(claims[claimCoord[1]][claimCoord[2]])
-                if intact:
-                    if claims[claimCoord[1]][claimCoord[2]] == "X":
-                        print("claim: "+ str(claimNum) + " invalidated " + str(claimCoord[1]) + "," +str(claimCoord[2])+" "+ claims[claimCoord[1]][claimCoord[2]])
-                        intact = False
-            if intact:
-                # print(claims[653][249])
-                # print(claim)
-                return claimNum
-            claimNum = coord[0]
-            claim = []
-            intact = True
-
+        if p2Claims[str(coord[0])] == "Valid":
+            if claims[coord[1]][coord[2]] == "X":
+                p2Claims[str(coord[0])] = "Invalid"
+    for claim in p2Claims:
+        if p2Claims[claim] == "Valid":
+            return claim
     return "Nope for some reason"
+
 print(compareClaims(buildClaimMap(data)))
